@@ -3,22 +3,49 @@
 }
 
 .card {
+    background-color: #ff4c4c;
     border: 10px solid #f4dc42;
     border-radius: 5px;
+    padding: 10px;
     width: 350px;
 }
 
-.picture {
-    border: 3px solid #ccc;
-    border-radius: 5px;
+.attacks{
+    padding: 0 15px;
+}
+
+.energy{
+    height: 20px;
+    width: 20px;
+}
+
+.evolves-from {
+    background-color: #999;
+    border: 5px solid #fdfdfd;
+    border-radius: 50%;
     height: auto;
+    max-height: 60px;
+    max-width: 60px;
+    position: absolute;
+    width: auto;
+    z-index: 999;
+}
+
+.picture {
+    border: 5px solid #fdfdfd;
+    border-radius: 5px;
+    box-sizing: border-box;
+    margin-bottom: 15px;
     max-height: 300px;
     max-width: 100%;
+    height: auto;
+    position: relative;
     width: auto;
 }
 
 .right {
     float: right;
+    display: inline-flex;
 }
 
 .footer {
