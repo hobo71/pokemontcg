@@ -5,16 +5,29 @@ import charmel from './charmeleon.png';
 import fire from './fire_energy.png';
 
 class Header extends Component {
+  constructor(props) {
+    super(props);
+    this.renderEvolveFrom = this.renderEvolveFrom.bind(this);
+  }
+
+  renderEvolveFrom(evolveFrom) {
+    return (
+      <img src={charmel} className="evolves-from" alt="evolves-from"/>
+    )
+  }
+
   render() {
     const pokemon = this.props.pokemon;
+    const evolvesFrom = pokemon.evolvesFrom ? this.renderEvolveFrom(pokemon.evolvesFrom) : null;
 
     return (
       <div className="card-header">
-        <span>{pokemon.name}</span>
+        {evolvesFrom}
+        <span className="pokemon-name">{pokemon.name}</span>
         <span className="right">
           <small>hp</small>
           {pokemon.hp}
-          <img src={fire} className="energy" alt="pokemon" />
+          <img src={fire} className="pokemon-type" alt="pokemon" />
         </span>
       </div>
     )
@@ -25,10 +38,15 @@ class Attacks extends Component {
   renderAttacks(attacks) {
     const atks = attacks.map(atk =>
         <div key={atk.name.replace(" ", "-")}>
-          <span>{atk.cost.length}</span>
-          <span>{atk.name}</span>
-          <span className="right">{atk.damage}</span>
-          <p>{atk.text}</p>
+          <span className="attack-cost">
+            <img src={fire} className="energy-cost" alt="pokemon" />
+            <img src={fire} className="energy-cost" alt="pokemon" />
+            <img src={fire} className="energy-cost" alt="pokemon" />
+            <img src={fire} className="energy-cost" alt="pokemon" />
+          </span>
+          <span className="attack-name">{atk.name}</span>
+          <span className="attack-damage right">{atk.damage}</span>
+          <p className="attack-description">{atk.text}</p>
         </div>
       );
 
@@ -43,9 +61,9 @@ class Attacks extends Component {
     const pokemon = this.props.pokemon;
     const hasAbility = pokemon.ability ? (
       <div>
-        <span>{pokemon.ability.type}</span>
-        <span>{pokemon.ability.name}</span>
-        <p>{pokemon.ability.text}</p>
+        <small className="ability__type">{pokemon.ability.type}</small>
+        <span className="ability__name">{pokemon.ability.name}</span>
+        <p className="attack-description">{pokemon.ability.text}</p>
       </div>
     ) : null;
 
@@ -64,9 +82,18 @@ class Footer extends Component {
 
     return (
       <div className="footer">
-        <span className="weaknesses">{pokemon.weaknesses.map(weak => weak.type + " " + weak.value)}</span>
-        <span className="resistances">{pokemon.resistances.map(resist => resist.type + " " + resist.value)}</span>
-        <span className="retreat">{pokemon.retreatCost.length}</span>
+        <small className="weaknesses">
+          weakness
+          {pokemon.weaknesses.map(weak => <div>{weak.type + " " + weak.value}</div>)}
+        </small>
+        <small className="resistances">
+          resistance
+          {pokemon.resistances.map(resist => <div>{resist.type + " " + resist.value}</div>)}
+        </small>
+        <small className="retreat">
+          retreat cost
+          <div>{pokemon.retreatCost.length}</div>
+        </small>
       </div>
     );
   }
@@ -87,24 +114,9 @@ class Card extends Component {
 }
 
 class Image extends Component {
-  constructor(props) {
-    super(props);
-    this.renderEvolveFrom = this.renderEvolveFrom.bind(this);
-  }
-
-  renderEvolveFrom(evolveFrom) {
-    return (
-      <img src={charmel} className="evolves-from" alt="evolves-from"/>
-    )
-  }
-
   render() {
-    const pokemon = this.props.pokemon;
-    const evolvesFrom = pokemon.evolvesFrom ? this.renderEvolveFrom(pokemon.evolvesFrom) : null;
-
     return (
       <div>
-        {evolvesFrom}
         <img className="picture" src={chariz} alt="pokemon" />
       </div>
     )
